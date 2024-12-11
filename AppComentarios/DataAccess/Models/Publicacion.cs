@@ -18,6 +18,6 @@ namespace AppComentarios.DataAccess.Models
           public DateTime FechaPublicacion { get; set; } = DateTime.Now;
 
           //*Relación entre Una publicación y muchos comentarios
-          public virtual required ICollection<Comentario> Comentarios { get; set; }
+          public virtual ICollection<Comentario>? Comentarios { get; set; }
      }
 }
