@@ -18,6 +18,26 @@ builder.Services.AddDbContext<ComentariosDbContext>(op =>
      op.UseSqlServer(connectionString);
 });
 
+//*Habilitar los CORS
+string[] frontEndsAppUrls = [
+     "http://localhost:4200/",
+"http://localhost:3000/",
+"http://localhost:5173/",
+];
+
+builder.Services.AddCors(
+     op =>
+     {
+          op.AddPolicy("frontEnd", builder =>
+          {
+               builder.WithOrigins(frontEndsAppUrls)
+               .SetIsOriginAllowedToAllowWildcardSubdomains()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+          });
+     }
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +48,7 @@ if (app.Environment.IsDevelopment())
      app.UseSwaggerUI();
 }
 
+app.UseCors("frontEnd");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
