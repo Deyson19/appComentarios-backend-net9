@@ -1,5 +1,8 @@
+using System.Security.Cryptography.Xml;
+using System.Text.Json.Serialization;
 using AppComentarios.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 //*Connection String
 string connectionString = builder.Configuration.GetConnectionString("SQLServer")!;
-builder.Services.AddControllers();
+
+builder.Services.AddControllers().AddJsonOptions(op =>
+{
+     op.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddEndpointsApiExplorer();
@@ -49,6 +56,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("frontEnd");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
