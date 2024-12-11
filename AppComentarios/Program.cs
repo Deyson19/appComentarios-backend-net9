@@ -27,9 +27,9 @@ builder.Services.AddDbContext<ComentariosDbContext>(op =>
 
 //*Habilitar los CORS
 string[] frontEndsAppUrls = [
-     "http://localhost:4200/",
-"http://localhost:3000/",
-"http://localhost:5173/",
+     "http://localhost:4200",
+"http://localhost:3000",
+"http://localhost:5173",
 ];
 
 builder.Services.AddCors(
@@ -55,8 +55,8 @@ if (app.Environment.IsDevelopment())
      app.UseSwaggerUI();
 }
 
-app.UseCors("frontEnd");
 
+app.UseCors("frontEnd");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
