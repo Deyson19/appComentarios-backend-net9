@@ -21,7 +21,7 @@ namespace AppComentarios.Controllers
           [HttpGet("{id}")]
           public async Task<IActionResult> Get(Guid id)
           {
-               var comentario = await _dbContext.Comentarios.FindAsync(id);
+               var comentario = await _dbContext.Comentarios.Include(p=>p.Publicacion).SingleOrDefaultAsync(x=>x.Id ==id);
                return comentario != null ? Ok(comentario) : NotFound();
           }
 
